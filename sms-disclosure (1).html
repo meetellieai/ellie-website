@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMS Disclosure — Ellie AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Oxanium:wght@200;300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo: #4F46E5;
+      --indigo-dark: #3730A3;
+      --indigo-light: #EEF2FF;
+      --text-primary: #111827;
+      --text-secondary: #6B7280;
+      --border: #E5E7EB;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #F9FAFB;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Oxanium', sans-serif;
+      font-weight: 200;
+      font-size: 1.6rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--indigo);
+      display: inline-block;
+      box-shadow: 0 0 10px 3px rgba(79, 70, 229, 0.5);
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      max-width: 760px;
+      margin: 60px auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--indigo-light);
+      color: var(--indigo);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--indigo);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h2 .icon {
+      width: 32px;
+      height: 32px;
+      background: var(--indigo-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* HIGHLIGHT BOX */
+    .highlight {
+      background: var(--indigo-light);
+      border-left: 4px solid var(--indigo);
+      border-radius: 0 10px 10px 0;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .highlight p {
+      color: var(--indigo-dark) !important;
+      font-size: 0.95rem !important;
+      font-weight: 500;
+      line-height: 1.65;
+      margin: 0 !important;
+    }
+
+    /* OPT-OUT SECTION */
+    .opt-out-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .opt-out-item {
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    .opt-out-item .keyword {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--indigo);
+      font-family: monospace;
+      margin-bottom: 6px;
+    }
+
+    .opt-out-item p {
+      font-size: 0.85rem !important;
+      color: var(--text-secondary) !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+    }
+
+    /* META */
+    .meta {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .meta a {
+      color: var(--indigo);
+      text-decoration: none;
+    }
+
+    .meta a:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    footer a {
+      color: var(--indigo);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      main { margin: 32px auto; }
+      .card { padding: 24px; }
+      h1 { font-size: 1.5rem; }
+      .opt-out-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">ellie <span class="logo-dot"></span></a>
+  </nav>
+
+  <main>
+    <div class="badge"><span class="badge-dot"></span> SMS Consent &amp; Disclosure</div>
+    <h1>Automated SMS Follow-Up Disclosure</h1>
+    <p class="subtitle">
+      This page explains how and when Ellie AI sends automated SMS messages on behalf of businesses that use our service.
+    </p>
+
+    <div class="card">
+      <h2><span class="icon">📋</span> How Consent Is Obtained</h2>
+      <p>
+        Ellie AI provides an automated SMS receptionist service for small trade businesses. When a customer calls a business that uses Ellie AI and the call goes unanswered, our system will automatically send an SMS follow-up message to that caller on behalf of the business.
+      </p>
+      <div class="highlight">
+        <p>
+          <strong>By calling a business that uses Ellie AI, you acknowledge and agree that you may receive an automated SMS text message reply from that business.</strong> This constitutes your consent to receive such messages.
+        </p>
+      </div>
+      <p>
+        Businesses using Ellie AI are required to display this disclosure so that callers are informed prior to or at the time of calling. The act of placing a call to a business using Ellie AI serves as the opt-in trigger for this automated follow-up communication.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">💬</span> What Messages You May Receive</h2>
+      <p>
+        If you call a business using Ellie AI and your call is not answered, you may receive an automated SMS message that:
+      </p>
+      <p>
+        <strong>•</strong> Acknowledges your missed call on behalf of the business<br />
+        <strong>•</strong> Asks for basic information such as your name and the nature of your inquiry<br />
+        <strong>•</strong> Helps schedule a callback or appointment<br />
+        <strong>•</strong> Connects you with the business as quickly as possible
+      </p>
+      <p>
+        Messages are sent by Ellie AI on behalf of the business you called. Message frequency will vary based on your interaction. <strong>Message and data rates may apply.</strong>
+      </p>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">🚫</span> How to Opt Out</h2>
+      <p>You can opt out of receiving SMS messages at any time using the following keywords:</p>
+      <div class="opt-out-grid">
+        <div class="opt-out-item">
+          <div class="keyword">STOP</div>
+          <p>Reply STOP to immediately unsubscribe from all further messages.</p>
+        </div>
+        <div class="opt-out-item">
+          <div class="keyword">HELP</div>
+          <p>Reply HELP to receive assistance or contact information.</p>
+        </div>
+      </div>
+      <p style="margin-top: 16px;">
+        After replying STOP, you will receive a single confirmation message and no further messages will be sent. You can re-subscribe at any time by replying START.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">🔒</span> Your Privacy</h2>
+      <p>
+        Ellie AI does not sell, rent, or share your personal information or phone number with third parties for marketing purposes. Your information is used solely to facilitate the communication between you and the business you contacted.
+      </p>
+      <p>
+        For full details, please review our <a href="/privacy-policy" style="color: var(--indigo); font-weight: 600;">Privacy Policy</a> and <a href="/terms" style="color: var(--indigo); font-weight: 600;">Terms of Service</a>.
+      </p>
+      <div class="meta">
+        For questions about this disclosure or our SMS practices, contact us at <a href="/cdn-cgi/l/email-protection#f2818782829d8086b29f979786979e9e9b97939bdc919d9f"><span class="__cf_email__" data-cfemail="691a1c1919061b1d29040c0c1d0c0505000c0800470a0604">[email&#160;protected]</span></a><br />
+        Last updated: April 6, 2026 &nbsp;·&nbsp; Ellie AI &nbsp;·&nbsp; meetellieai.com
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 meetellieai.com &nbsp;·&nbsp;
+    <a href="/privacy-policy"
