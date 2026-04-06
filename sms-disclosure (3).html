@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS Disclosure — Ellie AI</title>
+<meta name="description" content="SMS consent and disclosure information for Ellie AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Oxanium:wght@200;300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#ffffff;color:#0F0F1A;overflow-x:hidden}
+a{color:#4F46E5;text-decoration:none}
+a:hover{text-decoration:underline}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#4F46E5,#3730A3);z-index:10001;width:0%;transition:width .05s linear}
+.orbs{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(100px)}
+.orb-1{width:700px;height:700px;background:radial-gradient(circle,rgba(79,70,229,.25),transparent 70%);top:-10%;left:-10%;animation:orbDrift1 18s ease-in-out infinite}
+.orb-2{width:600px;height:600px;background:radial-gradient(circle,rgba(79,70,229,.2),transparent 70%);top:40%;right:-15%;animation:orbDrift2 24s ease-in-out infinite}
+@keyframes orbDrift1{0%,100%{transform:translate(0,0);opacity:.6}50%{transform:translate(80px,60px);opacity:.8}}
+@keyframes orbDrift2{0%,100%{transform:translate(0,0);opacity:.5}50%{transform:translate(-60px,-40px);opacity:.7}}
+.noise{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px}
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.88);backdrop-filter:blur(24px)}
+nav::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,#4F46E5,#818CF8,#3730A3,transparent);opacity:.5}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px}
+.wordmark{font-family:'Oxanium',sans-serif;font-weight:200;font-size:1.6rem;letter-spacing:.12em;display:flex;align-items:center;gap:6px;color:#0F0F1A}
+.wordmark-dot{width:6px;height:6px;border-radius:50%;background:#4F46E5;box-shadow:0 0 10px 3px rgba(79,70,229,.5)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:rgba(15,15,26,.6);transition:color .3s}
+.nav-links a:hover{color:#0F0F1A;text-decoration:none}
+.page-content{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:120px 24px 80px}
+.page-title{font-size:clamp(2rem,5vw,3rem);font-weight:600;letter-spacing:-.02em;margin-bottom:8px}
+.page-subtitle{color:rgba(15,15,26,.5);font-size:14px;margin-bottom:48px}
+.divider{height:1px;background:linear-gradient(90deg,#4F46E5,transparent);margin-bottom:48px;opacity:.3}
+.section{margin-bottom:40px}
+.section h2{font-size:1.1rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#4F46E5;margin-bottom:16px}
+.section p{font-size:15px;line-height:1.8;color:rgba(15,15,26,.75);margin-bottom:12px}
+.section ul{padding-left:20px;margin-bottom:12px}
+.section ul li{font-size:15px;line-height:1.8;color:rgba(15,15,26,.75);margin-bottom:6px;list-style:disc}
+.highlight{background:rgba(79,70,229,.04);border-left:4px solid #4F46E5;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.highlight p{color:rgba(15,15,26,.8) !important;font-weight:500}
+.keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.keyword-card{background:rgba(79,70,229,.04);border:1px solid rgba(79,70,229,.1);border-radius:12px;padding:16px 20px}
+.keyword-card .kw{font-size:1rem;font-weight:700;color:#4F46E5;font-family:monospace;margin-bottom:6px}
+.keyword-card p{font-size:13px;color:rgba(15,15,26,.6);line-height:1.5;margin:0}
+footer{position:relative;z-index:2;border-top:1px solid rgba(15,15,26,.08);padding:32px 24px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(15,15,26,.4);transition:color .3s}
+.footer-copy{font-size:12px;color:rgba(15,15,26,.3)}
+@media(max-width:600px){.keyword-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="scrollProgress" class="scroll-progress"></div>
+<div class="orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+<div class="noise"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="wordmark">ellie<span class="wordmark-dot"></span></a>
+    <div class="nav-links">
+      <a href="/#how-it-works">How it Works</a>
+      <a href="/#features">Features</a>
+    </div>
+  </div>
+</nav>
+<div class="page-content">
+  <h1 class="page-title">SMS Disclosure</h1>
+  <p class="page-subtitle">Last updated: April 6, 2026</p>
+  <div class="divider"></div>
+
+  <div class="section">
+    <h2>How Consent Is Obtained</h2>
+    <p>Ellie AI provides an automated SMS receptionist service for small businesses. When a customer calls a business that uses Ellie AI and the call goes unanswered, our system sends an automated SMS follow-up message to that caller on behalf of the business.</p>
+    <div class="highlight">
+      <p>By calling a business that uses Ellie AI, you acknowledge that you may receive an automated SMS text message reply from that business. Businesses using Ellie AI are required to display this disclosure so that callers are informed prior to calling.</p>
+    </div>
+    <p>Additionally, customers who sign up through our website at <a href="/book-a-demo">ellie-website-jade.vercel.app/book-a-demo</a> explicitly consent to receive SMS communications by checking the consent checkbox on our opt-in form before submitting.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Messages You May Receive</h2>
+    <p>If you call a business using Ellie AI and your call is not answered, you may receive an automated SMS message that:</p>
+    <ul>
+      <li>Acknowledges your missed call on behalf of the business</li>
+      <li>Asks for basic information such as your name and the nature of your inquiry</li>
+      <li>Helps schedule a callback or appointment</li>
+      <li>Connects you with the business as quickly as possible</li>
+    </ul>
+    <p><strong>Message and data rates may apply.</strong> Message frequency varies based on your interaction.</p>
+  </div>
+
+  <div class="section">
+    <h2>How to Opt Out</h2>
+    <p>You can opt out of receiving SMS messages at any time using the following keywords:</p>
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw">STOP</div>
+        <p>Reply STOP to immediately unsubscribe from all further messages.</p>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">HELP</div>
+        <p>Reply HELP to receive assistance or contact information.</p>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">START</div>
+        <p>Reply START to resubscribe after opting out.</p>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">INFO</div>
+        <p>Reply INFO for more information about this service.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Your Privacy</h2>
+    <p>Ellie AI does not sell, rent, or share your personal information or phone number with third parties for marketing purposes. Your information is used solely to facilitate communication between you and the business you contacted.</p>
+    <p>For full details, please review our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms of Service</a>.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact Us</h2>
+    <p>For questions about this disclosure or our SMS practices, contact us at:<br>
+    <strong>Email:</strong> <a href="mailto:support@meetellieai.com">support@meetellieai.com</a><br>
+    <strong>Website:</strong> <a href="https://meetellieai.com">meetellieai.com</a></p>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="wordmark" style="font-size:1.3rem">ellie<span class="wordmark-dot"></span></a>
+    <div class="footer-links">
+      <a href="/#how-it-works">How it Works</a>
+      <a href="/#features">Features</a>
+      <a href="/privacy-policy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/sms-disclosure">SMS Disclosure</a>
+    </div>
+    <div class="footer-copy">© 2026 meetellieai.com</div>
+  </div>
+</footer>
+<script>
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / h * 100) + '%';
+}, { passive: true });
+</script>
+</body>
+</html>
