@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Ellie AI</title>
+<meta name="description" content="Privacy Policy for Ellie AI Revenue Assistant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Oxanium:wght@200;300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#ffffff;color:#0F0F1A;overflow-x:hidden;cursor:none}
+a{color:#4F46E5;text-decoration:none}
+a:hover{text-decoration:underline}
+
+.cursor{position:fixed;width:12px;height:12px;background:radial-gradient(circle,#4F46E5 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:10000;transition:transform .15s ease-out,opacity .15s;mix-blend-mode:screen;filter:blur(0.5px);box-shadow:0 0 20px 6px rgba(79,70,229,.35)}
+.cursor-trail{position:fixed;width:24px;height:24px;background:radial-gradient(circle,rgba(79,70,229,.15) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .3s ease-out,opacity .3s}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#4F46E5,#4F46E5,#3730A3);z-index:10001;width:0%;transition:width .05s linear}
+
+.orbs{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform,opacity}
+.orb-1{width:700px;height:700px;background:radial-gradient(circle,rgba(79,70,229,.25),transparent 70%);top:-10%;left:-10%;animation:orbDrift1 18s ease-in-out infinite}
+.orb-2{width:600px;height:600px;background:radial-gradient(circle,rgba(79,70,229,.2),transparent 70%);top:40%;right:-15%;animation:orbDrift2 24s ease-in-out infinite}
+.orb-3{width:800px;height:800px;background:radial-gradient(circle,rgba(55,48,163,.2),transparent 70%);bottom:-20%;left:30%;animation:orbDrift3 31s ease-in-out infinite}
+@keyframes orbDrift1{0%,100%{transform:translate(0,0) scale(1);opacity:.6}33%{transform:translate(80px,60px) scale(1.15);opacity:.8}66%{transform:translate(-40px,100px) scale(.95);opacity:.5}}
+@keyframes orbDrift2{0%,100%{transform:translate(0,0) scale(1);opacity:.5}40%{transform:translate(-100px,-50px) scale(1.1);opacity:.7}70%{transform:translate(50px,80px) scale(.9);opacity:.45}}
+@keyframes orbDrift3{0%,100%{transform:translate(0,0) scale(1);opacity:.5}50%{transform:translate(70px,-90px) scale(1.12);opacity:.7}}
+
+.noise{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px 256px}
+
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;background-clip:padding-box}
+nav::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,#4F46E5,#818CF8,#3730A3,transparent);opacity:.5}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px}
+.wordmark{font-family:'Oxanium',sans-serif;font-style:normal;font-weight:200;font-size:1.6rem;letter-spacing:.12em;display:flex;align-items:center;gap:6px;color:#0F0F1A}
+.wordmark-dot{width:6px;height:6px;border-radius:50%;background:#4F46E5;box-shadow:0 0 10px 3px rgba(79,70,229,.5)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:rgba(15,15,26,.6);transition:color .3s}
+.nav-links a:hover{color:#0F0F1A;text-decoration:none}
+
+.page-content{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:120px 24px 80px}
+.page-title{font-size:clamp(2rem,5vw,3rem);font-weight:600;letter-spacing:-.02em;margin-bottom:8px}
+.page-subtitle{color:rgba(15,15,26,.5);font-size:14px;margin-bottom:48px;letter-spacing:.05em}
+.divider{height:1px;background:linear-gradient(90deg,#4F46E5,transparent);margin-bottom:48px;opacity:.3}
+
+.policy-section{margin-bottom:40px}
+.policy-section h2{font-size:1.1rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#4F46E5;margin-bottom:16px}
+.policy-section p{font-size:15px;line-height:1.8;color:rgba(15,15,26,.75);margin-bottom:12px}
+.policy-section ul{padding-left:20px;margin-bottom:12px}
+.policy-section ul li{font-size:15px;line-height:1.8;color:rgba(15,15,26,.75);margin-bottom:6px;list-style:disc}
+
+footer{position:relative;z-index:2;border-top:1px solid rgba(15,15,26,.08);padding:32px 24px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(15,15,26,.4);transition:color .3s}
+.footer-links a:hover{color:#0F0F1A;text-decoration:none}
+.footer-copy{font-size:12px;color:rgba(15,15,26,.3);letter-spacing:.05em}
+</style>
+</head>
+<body>
+
+<div id="cursor" class="cursor"></div>
+<div id="cursorTrail" class="cursor-trail"></div>
+<div id="scrollProgress" class="scroll-progress"></div>
+<div class="orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+<div class="noise"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="wordmark">ellie<span class="wordmark-dot"></span></a>
+    <div class="nav-links">
+      <a href="/#how-it-works">How it Works</a>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-content">
+  <h1 class="page-title">Privacy Policy</h1>
+  <p class="page-subtitle">Last updated: March 17, 2026</p>
+  <div class="divider"></div>
+
+  <div class="policy-section">
+    <h2>Overview</h2>
+    <p>Ellie AI ("we," "our," or "us") operates an AI-powered SMS receptionist service that automatically replies to missed calls on behalf of small businesses. This Privacy Policy explains how we collect, use, and protect information in connection with our service.</p>
+    <p>By using Ellie, you agree to the collection and use of information in accordance with this policy.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>Information We Collect</h2>
+    <p>We collect the following types of information:</p>
+    <ul>
+      <li><strong>Phone numbers:</strong> Mobile phone numbers of end users who call our clients' businesses and receive automated SMS replies.</li>
+      <li><strong>Message content:</strong> The content of SMS conversations between end users and the Ellie AI assistant.</li>
+      <li><strong>Business information:</strong> Information provided by our business clients including business name, contact details, and service descriptions.</li>
+      <li><strong>Usage data:</strong> Information about how our service is used, including message timestamps and response metrics.</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2>How We Use Your Information</h2>
+    <p>We use the information we collect to:</p>
+    <ul>
+      <li>Deliver automated SMS responses to missed calls on behalf of our business clients</li>
+      <li>Improve the accuracy and quality of our AI responses</li>
+      <li>Provide our business clients with conversation logs and analytics</li>
+      <li>Comply with legal obligations and carrier requirements</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2>SMS Messaging & Consent</h2>
+    <p>End users receive SMS messages from Ellie AI when they place a missed call to a business that uses our service. By calling a business that uses Ellie, end users provide implied consent to receive an automated SMS follow-up from that business.</p>
+    <p>End users may opt out of receiving SMS messages at any time by replying <strong>STOP</strong> to any message. After opting out, no further messages will be sent. To resume messages, reply <strong>START</strong>. For help, reply <strong>HELP</strong>.</p>
+    <p>Message and data rates may apply. Message frequency varies based on business activity.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>Data Sharing</h2>
+    <p>We do not sell, trade, or rent your personal information to third parties for marketing purposes. We may share information with:</p>
+    <ul>
+      <li><strong>Our business clients:</strong> Conversation data is shared with the business whose missed call triggered the SMS interaction.</li>
+      <li><strong>Service providers:</strong> We use third-party services including Twilio (SMS delivery), Anthropic (AI processing), and Supabase (data storage) to operate our service. These providers are bound by their own privacy policies and do not use your data for independent marketing purposes.</li>
+      <li><strong>Legal requirements:</strong> We may disclose information if required by law or in response to valid legal requests.</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2>Data Retention</h2>
+    <p>We retain conversation data for up to 90 days to provide our service and allow business clients to review interactions. After this period, data is deleted unless required by law.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>Data Security</h2>
+    <p>We implement industry-standard security measures to protect your information. All data is transmitted over encrypted connections (HTTPS/TLS). However, no method of transmission over the internet is 100% secure.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li>Opt out of SMS communications by replying STOP</li>
+      <li>Request access to your personal data</li>
+      <li>Request deletion of your personal data</li>
+      <li>Contact us with any privacy concerns</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2>Contact Us</h2>
+    <p>If you have questions about this Privacy Policy or our data practices, please contact us at:</p>
+    <p><strong>Ellie AI</strong><br>
+    Email: <a href="mailto:privacy@meetellieai.com">privacy@meetellieai.com</a><br>
+    Website: <a href="https://meetellieai.com">meetellieai.com</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="wordmark" style="font-size:1.3rem">ellie<span class="wordmark-dot"></span></a>
+    <div class="footer-links">
+      <a href="/#how-it-works">How it Works</a>
+      <a href="/#features">Features</a>
+      <a href="/terms">Terms</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="footer-copy">© 2026 meetellieai.com</div>
+  </div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+let cx = -100, cy = -100, tx = -100, ty = -100;
+document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+(function animateCursor() {
+  cx += (tx - cx) * 0.2;
+  cy += (ty - cy) * 0.2;
+  cursor.style.transform = `translate(${tx - 6}px, ${ty - 6}px)`;
+  trail.style.transform = `translate(${cx - 12}px, ${cy - 12}px)`;
+  requestAnimationFrame(animateCursor);
+})();
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / h * 100) + '%';
+}, { passive: true });
+</script>
+</body>
+</html>
