@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellie — Never Miss a Lead Again</title>
+<meta name="description" content="Ellie is your 24/7 AI receptionist — capturing missed calls via SMS, chatting with website visitors, and delivering leads straight to you automatically.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Oxanium:wght@200;300&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:#ffffff;
+  color:#0F0F1A;
+  overflow-x:hidden;
+
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+img{max-width:100%;display:block}
+
+/* ── Scroll Progress ─────────────────────────────── */
+.scroll-progress{
+  position:fixed;top:0;left:0;
+  height:2px;
+  background:linear-gradient(90deg,#4F46E5,#4F46E5,#3730A3);
+  z-index:10001;
+  width:0%;
+  transition:width .05s linear;
+}
+
+/* ── Animated Background Orbs ────────────────────── */
+.orbs{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  will-change:transform,opacity;
+}
+.orb-1{
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(79,70,229,.25),transparent 70%);
+  top:-10%;left:-10%;
+  animation:orbDrift1 18s ease-in-out infinite;
+}
+.orb-2{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(79,70,229,.2),transparent 70%);
+  top:40%;right:-15%;
+  animation:orbDrift2 24s ease-in-out infinite;
+}
+.orb-3{
+  width:800px;height:800px;
+  background:radial-gradient(circle,rgba(55,48,163,.2),transparent 70%);
+  bottom:-20%;left:30%;
+  animation:orbDrift3 31s ease-in-out infinite;
+}
+.orb-4{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(79,70,229,.22),transparent 70%);
+  top:20%;left:50%;
+  animation:orbDrift4 27s ease-in-out infinite;
+}
+@keyframes orbDrift1{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.6}
+  33%{transform:translate(80px,60px) scale(1.15);opacity:.8}
+  66%{transform:translate(-40px,100px) scale(.95);opacity:.5}
+}
+@keyframes orbDrift2{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.5}
+  40%{transform:translate(-100px,-50px) scale(1.1);opacity:.7}
+  70%{transform:translate(50px,80px) scale(.9);opacity:.45}
+}
+@keyframes orbDrift3{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.5}
+  50%{transform:translate(70px,-90px) scale(1.12);opacity:.7}
+}
+@keyframes orbDrift4{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.5}
+  35%{transform:translate(-60px,70px) scale(1.08);opacity:.65}
+  70%{transform:translate(90px,-30px) scale(.93);opacity:.45}
+}
+
+/* ── Noise Overlay ───────────────────────────────── */
+.noise{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  z-index:1;
+  pointer-events:none;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;
+  background-size:256px 256px;
+}
+
+/* ── Utility ─────────────────────────────────────── */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section-enter{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.section-enter.visible{opacity:1;transform:translateY(0)}
+
+/* ── Sticky Nav ──────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  z-index:1000;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid transparent;
+  background-clip:padding-box;
+}
+nav::after{
+  content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,#4F46E5,#818CF8,#3730A3,transparent);
+  opacity:.5;
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+  max-width:1200px;margin:0 auto;padding:0 24px;
+}
+.wordmark{
+  font-family:'Oxanium',sans-serif;
+  font-style:normal;font-weight:200;
+  font-size:1.6rem;letter-spacing:.12em;
+  display:flex;align-items:center;gap:6px;
+}
+.wordmark-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#4F46E5;
+  box-shadow:0 0 10px 3px rgba(79,70,229,.5);
+}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(15,15,26,.6);
+  transition:color .3s;
+}
+.nav-links a:hover{color:#0F0F1A}
+.nav-cta{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+  padding:10px 24px;
+  background:linear-gradient(135deg,#4F46E5,#3730A3,#4F46E5,#3730A3);
+  background-size:300% 300%;
+  animation:gradientShift 6s ease infinite;
+  border:none;border-radius:100px;
+  color:#fff;cursor:none;
+  transition:box-shadow .3s,transform .3s;
+}
+.nav-cta:hover{
+  box-shadow:0 0 24px rgba(79,70,229,.4);
+  transform:translateY(-1px);
+}
+.nav-mobile-btn{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:none}
+
+/* ── Hero ────────────────────────────────────────── */
+.hero{
+  position:relative;z-index:2;
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:100px 0 60px;
+}
+.hero-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  width:100%;max-width:1200px;margin:0 auto;padding:0 24px;
+}
+.hero-content{display:flex;flex-direction:column;gap:28px}
+
+/* Stagger fade */
+.hero-badge,.hero-h1,.hero-sub,.hero-ctas,.phone-wrapper{
+  opacity:0;transform:translateY(30px);
+  animation:fadeUp .8s ease forwards;
+}
+.hero-badge{animation-delay:.1s}
+.hero-h1{animation-delay:.3s}
+.hero-sub{animation-delay:.5s}
+.hero-ctas{animation-delay:.7s}
+.phone-wrapper{animation-delay:.9s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  width:fit-content;
+  padding:8px 20px;
+  background:rgba(79,70,229,.05);
+  border:1px solid rgba(79,70,229,.3);
+  border-radius:100px;
+  font-size:13px;letter-spacing:.08em;
+  color:rgba(15,15,26,.7);
+  box-shadow:0 0 20px rgba(79,70,229,.1);
+  animation:fadeUp .8s ease forwards, badgePulse 3s ease-in-out infinite 1s;
+}
+@keyframes badgePulse{
+  0%,100%{box-shadow:0 0 20px rgba(79,70,229,.1)}
+  50%{box-shadow:0 0 30px rgba(79,70,229,.25)}
+}
+.hero-h1{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(3.5rem,8vw,7rem);
+  font-weight:500;
+  line-height:1.05;
+}
+.hero-h1 .gradient-text{
+  background:linear-gradient(135deg,#4F46E5,#3730A3,#4F46E5,#3730A3);
+  background-size:300% 300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradientShift 6s ease infinite;
+}
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.hero-sub{
+  font-weight:500;font-size:1.15rem;
+  color:rgba(15,15,26,.6);
+  line-height:1.7;
+  max-width:520px;
+}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{
+  padding:16px 36px;
+  background:linear-gradient(135deg,#4F46E5,#3730A3,#4F46E5,#3730A3);
+  background-size:300% 300%;
+  animation:gradientShift 6s ease infinite;
+  border:none;border-radius:100px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:500;letter-spacing:.05em;
+  color:#fff;cursor:none;
+  box-shadow:0 0 30px rgba(79,70,229,.3);
+  transition:box-shadow .3s,transform .3s;
+}
+.btn-primary:hover{
+  box-shadow:0 0 40px rgba(79,70,229,.5);
+  transform:translateY(-2px);
+}
+.btn-secondary{
+  padding:16px 36px;
+  background:transparent;
+  border:1px solid rgba(79,70,229,.5);
+  border-radius:100px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:400;letter-spacing:.05em;
+  color:rgba(15,15,26,.7);cursor:none;
+  transition:border-color .3s,color .3s,transform .3s;
+}
+.btn-secondary:hover{
+  border-color:#4F46E5;color:#0F0F1A;
+  transform:translateY(-2px);
+}
+
+/* ── Phone Mockup ────────────────────────────────── */
+.phone-wrapper{display:flex;justify-content:center}
+.phone{
+  width:280px;
+  background:#ffffff;
+  border-radius:36px;
+  padding:12px;
+  position:relative;
+  box-shadow:
+    0 0 0 2px rgba(79,70,229,.3),
+    0 0 40px rgba(79,70,229,.15),
+    0 0 80px rgba(79,70,229,.1),
+    inset 0 0 30px rgba(0,0,0,.5);
+  border:1px solid rgba(79,70,229,.25);
+}
+.phone::before{
+  content:'';position:absolute;
+  top:8px;left:50%;transform:translateX(-50%);
+  width:80px;height:24px;
+  background:#ffffff;
+  border-radius:0 0 14px 14px;
+  z-index:3;
+  border:1px solid rgba(79,70,229,.15);
+  border-top:none;
+}
+.phone-screen{
+  background:#f5f5ff;
+  border-radius:26px;
+  padding:44px 16px 20px;
+  min-height:420px;
+  display:flex;flex-direction:column;
+}
+.phone-header{
+  text-align:center;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(79,70,229,.1);
+  margin-bottom:16px;
+}
+.phone-header-name{
+  font-weight:500;font-size:14px;
+  color:rgba(15,15,26,.9);
+}
+.phone-header-sub{font-size:11px;color:rgba(15,15,26,.4);margin-top:2px}
+.phone-messages{
+  flex:1;display:flex;flex-direction:column;
+  gap:10px;justify-content:flex-end;
+}
+.msg{
+  max-width:85%;padding:11px 15px;
+  border-radius:18px;
+  font-size:13px;line-height:1.5;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .4s,transform .4s;
+}
+.msg.visible{opacity:1;transform:translateY(0)}
+.msg-ellie{
+  background:linear-gradient(135deg,rgba(79,70,229,.25),rgba(55,48,163,.2));
+  border:1px solid rgba(79,70,229,.2);
+  align-self:flex-start;
+  border-bottom-left-radius:6px;
+  color:rgba(15,15,26,.9);
+}
+.msg-customer{
+  background:rgba(79,70,229,.08);
+  border:1px solid rgba(79,70,229,.1);
+  align-self:flex-end;
+  border-bottom-right-radius:6px;
+  color:rgba(15,15,26,.7);
+}
+.typing-indicator{
+  display:flex;gap:4px;padding:11px 18px;
+  background:linear-gradient(135deg,rgba(79,70,229,.25),rgba(55,48,163,.2));
+  border:1px solid rgba(79,70,229,.2);
+  border-radius:18px;border-bottom-left-radius:6px;
+  align-self:flex-start;
+  width:fit-content;
+  opacity:0;
+  transition:opacity .3s;
+}
+.typing-indicator.visible{opacity:1}
+.typing-dot{
+  width:6px;height:6px;
+  background:rgba(255,255,255,.5);
+  border-radius:50%;
+  animation:typingBounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes typingBounce{
+  0%,60%,100%{transform:translateY(0);opacity:.4}
+  30%{transform:translateY(-4px);opacity:.9}
+}
+
+/* ── Social Proof ────────────────────────────────── */
+.social-proof{
+  position:relative;z-index:2;
+  padding:48px 0;
+  border-top:1px solid rgba(79,70,229,.05);
+  border-bottom:1px solid rgba(79,70,229,.05);
+  background:rgba(248,248,255,0.8);
+}
+.social-proof-label{
+  text-align:center;
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(15,15,26,.4);
+  margin-bottom:24px;
+}
+.marquee{
+  overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+}
+.marquee-track{
+  display:flex;gap:16px;
+  width:fit-content;
+  animation:marqueeScroll 30s linear infinite;
+}
+@keyframes marqueeScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.marquee-pill{
+  flex-shrink:0;
+  padding:8px 20px;
+  background:rgba(79,70,229,.05);
+  border:1px solid rgba(79,70,229,.08);
+  border-radius:100px;
+  font-size:13px;
+  color:rgba(15,15,26,.5);
+  white-space:nowrap;
+  backdrop-filter:blur(8px);
+}
+
+/* ── Ellie Demo Section ───────────────────────────── */
+.ellie-demo{
+  position:relative;z-index:2;
+  padding:120px 0;
+}
+.demo-label{
+  text-align:center;
+  font-size:13px;letter-spacing:.15em;text-transform:uppercase;
+  color:#4F46E5;margin-bottom:16px;
+}
+.demo-subtitle{
+  text-align:center;
+  font-size:1.1rem;
+  color:rgba(15,15,26,.5);
+  margin-top:-40px;
+  margin-bottom:64px;
+}
+.demo-layout{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:48px;
+  align-items:start;
+  max-width:900px;
+  margin:0 auto;
+}
+/* Left context cards */
+.demo-context{
+  display:flex;flex-direction:column;
+  align-items:stretch;
+  gap:0;
+  padding-top:16px;
+}
+.demo-context-card{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;
+  background:rgba(79,70,229,.04);
+  border:1px solid rgba(79,70,229,.1);
+  border-radius:16px;
+  transition:border-color .3s;
+}
+.demo-context-card--active{
+  background:rgba(79,70,229,.08);
+  border-color:rgba(79,70,229,.3);
+  box-shadow:0 0 20px rgba(79,70,229,.08);
+}
+.demo-context-icon{font-size:1.4rem}
+.demo-context-title{font-size:13px;font-weight:600;color:rgba(15,15,26,.85)}
+.demo-context-sub{font-size:11px;color:rgba(15,15,26,.4);margin-top:2px}
+.demo-context-arrow{
+  text-align:center;
+  font-size:1.2rem;
+  color:rgba(79,70,229,.4);
+  padding:8px 0;
+}
+/* Right thread */
+.demo-thread{
+  background:rgba(255,255,255,.8);
+  border:1px solid rgba(79,70,229,.12);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(79,70,229,.06);
+  backdrop-filter:blur(12px);
+}
+.demo-thread-header{
+  display:flex;align-items:center;gap:14px;
+  padding:20px 24px;
+  border-bottom:1px solid rgba(79,70,229,.08);
+  background:rgba(79,70,229,.03);
+}
+.demo-thread-avatar{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,#4F46E5,#3730A3);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:600;color:#fff;
+  flex-shrink:0;
+}
+.demo-thread-name{font-size:14px;font-weight:600;color:rgba(15,15,26,.9)}
+.demo-thread-status{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(15,15,26,.4);margin-top:2px}
+.demo-status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 6px rgba(34,197,94,.5);
+  animation:statusPulse 2s ease-in-out infinite;
+}
+@keyframes statusPulse{
+  0%,100%{opacity:1}50%{opacity:.5}
+}
+.demo-messages{
+  padding:24px;
+  display:flex;flex-direction:column;
+  gap:16px;
+}
+.demo-msg{display:flex;flex-direction:column;gap:4px}
+.demo-msg--ellie{align-items:flex-start}
+.demo-msg--customer{align-items:flex-end}
+.demo-bubble{
+  max-width:75%;
+  padding:12px 18px;
+  border-radius:20px;
+  font-size:14px;line-height:1.6;
+}
+.demo-msg--ellie .demo-bubble{
+  background:linear-gradient(135deg,rgba(79,70,229,.12),rgba(55,48,163,.08));
+  border:1px solid rgba(79,70,229,.15);
+  border-bottom-left-radius:6px;
+  color:rgba(15,15,26,.85);
+}
+.demo-msg--customer .demo-bubble{
+  background:rgba(79,70,229,.08);
+  border:1px solid rgba(79,70,229,.1);
+  border-bottom-right-radius:6px;
+  color:rgba(15,15,26,.7);
+}
+.demo-time{font-size:11px;color:rgba(15,15,26,.3);padding:0 4px}
+/* Lead captured card */
+.demo-captured{
+  margin-top:8px;
+  padding:20px;
+  background:linear-gradient(135deg,rgba(79,70,229,.08),rgba(55,48,163,.05));
+  border:1px solid rgba(79,70,229,.2);
+  border-radius:16px;
+}
+.demo-captured-title{
+  font-size:13px;font-weight:600;
+  color:#4F46E5;
+  margin-bottom:14px;
+  letter-spacing:.05em;
+}
+.demo-captured-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.demo-captured-grid div{
+  font-size:13px;color:rgba(15,15,26,.7);
+}
+.demo-captured-grid span{
+  display:block;
+  font-size:11px;
+  color:rgba(15,15,26,.35);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:2px;
+}
+/* Scroll reveal animation */
+.demo-reveal{
+  opacity:0;transform:translateY(16px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.demo-reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── How It Works ────────────────────────────────── */
+.how-it-works{
+  position:relative;z-index:2;
+  padding:120px 0;
+}
+.section-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2.2rem,5vw,3.8rem);
+  font-weight:600;
+  text-align:center;
+  margin-bottom:64px;
+}
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.step-card{
+  position:relative;
+  background:rgba(79,70,229,.04);
+  border:1px solid rgba(79,70,229,.1);
+  border-radius:20px;
+  padding:40px 28px 36px;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  overflow:hidden;
+  transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;
+  transform-style:preserve-3d;
+}
+.step-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,#4F46E5,#4F46E5);
+  opacity:.6;transition:opacity .3s;
+}
+.step-card:hover{
+  border-color:rgba(79,70,229,.2);
+  box-shadow:0 20px 60px rgba(79,70,229,.08);
+}
+.step-card:hover::before{opacity:1}
+.step-num{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:4rem;font-weight:600;
+  background:linear-gradient(135deg,rgba(79,70,229,.3),rgba(79,70,229,.3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;margin-bottom:20px;
+}
+.step-icon{
+  width:48px;height:48px;
+  margin-bottom:20px;
+  position:relative;
+}
+/* Phone icon */
+.icon-phone{
+  width:32px;height:32px;
+  border:2px solid rgba(79,70,229,.6);
+  border-radius:8px;
+  position:relative;
+}
+.icon-phone::after{
+  content:'';position:absolute;top:-6px;right:-6px;
+  width:12px;height:12px;
+  background:#4F46E5;border-radius:50%;
+  box-shadow:0 0 8px rgba(79,70,229,.5);
+}
+/* Chat icon */
+.icon-chat{
+  width:34px;height:28px;
+  border:2px solid rgba(79,70,229,.6);
+  border-radius:12px 12px 12px 4px;
+  position:relative;
+}
+.icon-chat::before{
+  content:'';position:absolute;top:8px;left:8px;
+  width:14px;height:2px;
+  background:rgba(79,70,229,.5);border-radius:2px;
+  box-shadow:0 6px 0 rgba(79,70,229,.3);
+}
+/* Calendar icon */
+.icon-calendar{
+  width:32px;height:32px;
+  border:2px solid rgba(55,48,163,.6);
+  border-radius:8px;
+  position:relative;
+}
+.icon-calendar::before{
+  content:'';position:absolute;top:8px;left:6px;
+  width:16px;height:2px;
+  background:rgba(55,48,163,.4);
+  box-shadow:0 6px 0 rgba(55,48,163,.3),8px 6px 0 rgba(55,48,163,.3);
+}
+.icon-calendar::after{
+  content:'✓';position:absolute;bottom:4px;right:5px;
+  font-size:12px;color:rgba(55,48,163,.7);
+}
+.step-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:1.15rem;font-weight:500;
+  margin-bottom:10px;
+}
+.step-body{
+  font-size:.95rem;color:rgba(15,15,26,.55);line-height:1.6;
+}
+
+/* ── Features Grid ───────────────────────────────── */
+.features{
+  position:relative;z-index:2;
+  padding:100px 0 120px;
+}
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.feature-card{
+  position:relative;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(79,70,229,.1);
+  border-radius:16px;
+  padding:32px 24px 28px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  overflow:hidden;
+  transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;
+  transform-style:preserve-3d;
+}
+.feature-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:60px;height:60px;
+  background:radial-gradient(circle at top left,rgba(79,70,229,.12),transparent 70%);
+  border-radius:0 0 60px 0;
+}
+.feature-card:hover{
+  border-color:rgba(79,70,229,.15);
+  box-shadow:0 16px 48px rgba(79,70,229,.08);
+}
+.feature-icon{
+  width:40px;height:40px;
+  margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.feature-icon-shape{
+  width:32px;height:32px;
+  border-radius:10px;
+  border:1.5px solid;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+}
+.fi-sms{border-color:rgba(79,70,229,.5);color:rgba(79,70,229,.7)}
+.fi-book{border-color:rgba(79,70,229,.5);color:rgba(79,70,229,.7)}
+.fi-247{border-color:rgba(55,48,163,.5);color:rgba(55,48,163,.7);font-size:10px;font-weight:700}
+.fi-custom{border-color:rgba(79,70,229,.5);color:rgba(79,70,229,.7)}
+.fi-lead{border-color:rgba(79,70,229,.5);color:rgba(79,70,229,.7)}
+.fi-hand{border-color:rgba(79,70,229,.5);color:rgba(79,70,229,.7)}
+.feature-name{
+  font-weight:500;font-size:1rem;margin-bottom:6px;
+}
+.feature-desc{
+  font-size:.875rem;color:rgba(15,15,26,.5);line-height:1.6;
+}
+
+/* ── Stats Strip ─────────────────────────────────── */
+.stats{
+  position:relative;z-index:2;
+  padding:72px 0;
+  background:rgba(0,0,0,.3);
+  border-top:1px solid rgba(79,70,229,.05);
+  border-bottom:1px solid rgba(79,70,229,.05);
+}
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+  text-align:center;
+}
+.stat-number{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2.5rem,4vw,3.5rem);
+  font-weight:600;
+  background:linear-gradient(135deg,#4F46E5,#4F46E5);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.stat-label{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(15,15,26,.45);margin-top:6px;
+}
+
+/* ── Testimonial ─────────────────────────────────── */
+.testimonial{
+  position:relative;z-index:2;
+  padding:120px 0;
+  text-align:center;
+}
+.testimonial-inner{position:relative;max-width:800px;margin:0 auto}
+.quote-mark{
+  position:absolute;
+  top:-40px;left:50%;transform:translateX(-50%);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12rem;line-height:1;font-weight:600;
+  background:linear-gradient(135deg,rgba(79,70,229,.12),rgba(79,70,229,.08));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  pointer-events:none;
+  user-select:none;
+}
+.testimonial-text{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-style:italic;font-weight:600;
+  font-size:clamp(1.5rem,3.5vw,2.4rem);
+  line-height:1.5;
+  color:rgba(15,15,26,.85);
+  position:relative;
+}
+.testimonial-attr{
+  margin-top:28px;
+  font-size:14px;
+  color:rgba(15,15,26,.45);
+  letter-spacing:.05em;
+}
+
+/* ── Final CTA ───────────────────────────────────── */
+.final-cta{
+  position:relative;z-index:2;
+  padding:120px 0 140px;
+  text-align:center;
+  overflow:hidden;
+}
+.final-cta-glow{
+  position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(79,70,229,.12),rgba(79,70,229,.08),transparent 70%);
+  pointer-events:none;
+  filter:blur(60px);
+}
+.final-cta h2{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2.2rem,5vw,3.8rem);
+  font-weight:600;
+  margin-bottom:56px;
+  position:relative;
+}
+.final-cta-sub{
+  font-size:1.1rem;color:rgba(15,15,26,.55);
+  margin-bottom:40px;position:relative;
+}
+.cta-rotating-border{
+  position:relative;
+  display:inline-block;
+  padding:3px;
+  border-radius:100px;
+  background:conic-gradient(from var(--angle,0deg),#4F46E5,#818CF8,#3730A3,#6366F1,#4F46E5);
+  animation:rotateBorder 4s linear infinite;
+}
+@property --angle{
+  syntax:'<angle>';
+  initial-value:0deg;
+  inherits:false;
+}
+@keyframes rotateBorder{
+  to{--angle:360deg}
+}
+.cta-rotating-border .btn-inner{
+  display:block;
+  padding:18px 48px;
+  background:#ffffff;
+  border-radius:100px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px;font-weight:500;letter-spacing:.05em;
+  color:#0F0F1A;cursor:none;
+  transition:background .3s;
+}
+.cta-rotating-border:hover .btn-inner{
+  background:rgba(10,10,26,.7);
+}
+.final-cta-note{position:relative;
+  margin-top:20px;
+  font-size:13px;color:rgba(15,15,26,.3);
+  position:relative;
+}
+
+/* ── Footer ──────────────────────────────────────── */
+footer{
+  position:relative;z-index:2;
+  padding:36px 0;
+  background:#ffffff;
+}
+footer::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,#4F46E5,#818CF8,#3730A3,transparent);
+  opacity:.4;
+}
+.footer-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1200px;margin:0 auto;padding:0 24px;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-links{display:flex;gap:24px}
+.footer-links a{
+  font-size:13px;color:rgba(15,15,26,.4);
+  transition:color .3s;
+}
+.footer-links a:hover{color:rgba(15,15,26,.7)}
+.footer-copy{font-size:13px;color:rgba(15,15,26,.3)}
+
+/* ── Mobile Responsive ───────────────────────────── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .hero-content{align-items:center}
+  .hero-sub{max-width:100%}
+  .hero-ctas{justify-content:center}
+  .steps{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:32px}
+  .nav-links{display:none}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:absolute;top:64px;left:0;width:100%;
+    background:rgba(255,255,255,0.97);
+    backdrop-filter:blur(24px);
+    padding:24px;gap:20px;
+    border-bottom:1px solid rgba(79,70,229,.2);
+  }
+  .nav-mobile-btn{display:block}
+  .phone{width:250px}
+  .demo-layout{grid-template-columns:1fr;gap:32px}
+  .demo-context{flex-direction:row;flex-wrap:wrap;gap:12px}
+  .demo-context-card{flex:1;min-width:140px}
+  .demo-context-arrow{display:none}
+}
+@media(max-width:600px){
+  .features-grid{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(2.5rem,10vw,3.5rem)}
+  .phone{width:240px}
+  .footer-inner{flex-direction:column;text-align:center}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .demo-layout{grid-template-columns:1fr}
+  .demo-context{display:none}
+  .demo-thread{border-radius:16px}
+  .demo-bubble{max-width:90%;font-size:13px}
+  .demo-captured-grid{grid-template-columns:1fr 1fr}
+}
+.btn-primary,.btn-secondary,.nav-cta,.cta-rotating-border .btn-inner{cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Custom Cursor -->
+
+<!-- Animated Background -->
+<div class="orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+</div>
+<div class="noise"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="wordmark">ellie<span class="wordmark-dot"></span></a>
+    <button class="nav-mobile-btn" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#how-it-works">How it Works</a>
+      <a href="#features">Features</a>
+      <a href="/book-a-demo" class="nav-cta">Book a Free Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">✦ AI Revenue Assistant</div>
+      <h1 class="hero-h1">
+        Never Miss a<br>
+        <span class="gradient-text">Lead Again.</span>
+      </h1>
+      <p class="hero-sub">
+        Ellie captures every missed call, chats with visitors on your website, and delivers leads straight to you — automatically, around the clock.
+      </p>
+      <div class="hero-ctas">
+        <a href="#demo" class="btn-secondary">See Ellie in Action</a>
+        <a href="/book-a-demo" class="btn-primary">Book a Free Demo</a>
+      </div>
+    </div>
+    <div class="phone-wrapper">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-header-name">Ellie</div>
+            <div class="phone-header-sub">AI Revenue Assistant</div>
+          </div>
+          <div class="phone-messages" id="phoneMessages">
+            <div class="msg msg-ellie" data-delay="800">
+              Hi! Sorry we missed your call — I'm Ellie, the AI assistant for John's Plumbing. How can I help you today?
+            </div>
+            <div class="msg msg-customer" data-delay="2000">
+              Hi, I need to book an appointment
+            </div>
+            <div class="msg msg-ellie" data-delay="1800">
+              I'd be happy to help! Who am I speaking with?
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof -->
+<section class="social-proof section-enter">
+  <div class="social-proof-label">Built for owner-operated service businesses</div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-pill">Pest Control</span>
+      <span class="marquee-pill">Lawn Care</span>
+      <span class="marquee-pill">Plumbers</span>
+      <span class="marquee-pill">HVAC</span>
+      <span class="marquee-pill">Painters</span>
+      <span class="marquee-pill">Salons</span>
+      <span class="marquee-pill">Electricians</span>
+      <span class="marquee-pill">Landscapers</span>
+      <span class="marquee-pill">Handymen</span>
+      <span class="marquee-pill">Cleaners</span>
+      <span class="marquee-pill">Roofers</span>
+      <span class="marquee-pill">Locksmiths</span>
+      <span class="marquee-pill">Auto Repair</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-pill">Pest Control</span>
+      <span class="marquee-pill">Lawn Care</span>
+      <span class="marquee-pill">Plumbers</span>
+      <span class="marquee-pill">HVAC</span>
+      <span class="marquee-pill">Painters</span>
+      <span class="marquee-pill">Salons</span>
+      <span class="marquee-pill">Electricians</span>
+      <span class="marquee-pill">Landscapers</span>
+      <span class="marquee-pill">Handymen</span>
+      <span class="marquee-pill">Cleaners</span>
+      <span class="marquee-pill">Roofers</span>
+      <span class="marquee-pill">Locksmiths</span>
+      <span class="marquee-pill">Auto Repair</span>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works section-enter" id="how-it-works">
+  <div class="container">
+    <h2 class="section-title">Ellie works while you work.</h2>
+    <div class="steps">
+      <div class="step-card tilt-card">
+        <div class="step-num">01</div>
+        <div class="step-icon"><div class="icon-phone"></div></div>
+        <h3 class="step-title">You miss a call</h3>
+        <p class="step-body">A customer calls. You're busy. No problem.</p>
+      </div>
+      <div class="step-card tilt-card">
+        <div class="step-num">02</div>
+        <div class="step-icon"><div class="icon-chat"></div></div>
+        <h3 class="step-title">Ellie texts them back</h3>
+        <p class="step-body">Within seconds, Ellie sends a warm, personalised text.</p>
+      </div>
+      <div class="step-card tilt-card">
+        <div class="step-num">03</div>
+        <div class="step-icon"><div class="icon-calendar"></div></div>
+        <h3 class="step-title">Customer is captured</h3>
+        <p class="step-body">Appointments booked. Questions answered. Lead saved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- See Ellie in Action -->
+<section class="ellie-demo section-enter" id="demo">
+  <div class="container">
+    <div class="demo-label">✦ Live Conversation</div>
+    <h2 class="section-title">See Ellie in action.</h2>
+    <p class="demo-subtitle">A real missed call. A real conversation. A captured lead.</p>
+    <div class="demo-layout">
+      <!-- Left: context -->
+      <div class="demo-context">
+        <div class="demo-context-card">
+          <div class="demo-context-icon">📞</div>
+          <div class="demo-context-text">
+            <div class="demo-context-title">Missed call detected</div>
+            <div class="demo-context-sub">John's Plumbing · 2 seconds ago</div>
+          </div>
+        </div>
+        <div class="demo-context-arrow">↓</div>
+        <div class="demo-context-card demo-context-card--active">
+          <div class="demo-context-icon">🤖</div>
+          <div class="demo-context-text">
+            <div class="demo-context-title">Ellie responds instantly</div>
+            <div class="demo-context-sub">Capturing the lead automatically</div>
+          </div>
+        </div>
+        <div class="demo-context-arrow">↓</div>
+        <div class="demo-context-card">
+          <div class="demo-context-icon">✅</div>
+          <div class="demo-context-text">
+            <div class="demo-context-title">Lead captured</div>
+            <div class="demo-context-sub">Name · Service · Day · Phone number</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: conversation -->
+      <div class="demo-thread">
+        <div class="demo-thread-header">
+          <div class="demo-thread-avatar">E</div>
+          <div>
+            <div class="demo-thread-name">Ellie · John's Plumbing</div>
+            <div class="demo-thread-status"><span class="demo-status-dot"></span>Active now</div>
+          </div>
+        </div>
+        <div class="demo-messages">
+          <div class="demo-msg demo-msg--ellie demo-reveal">
+            <div class="demo-bubble">Hi! Sorry we missed your call — I'm Ellie, the AI assistant for John's Plumbing. How can I help you today?</div>
+            <div class="demo-time">Just now</div>
+          </div>
+          <div class="demo-msg demo-msg--customer demo-reveal">
+            <div class="demo-bubble">Hi, I need to book an appointment</div>
+          </div>
+          <div class="demo-msg demo-msg--ellie demo-reveal">
+            <div class="demo-bubble">I'd be happy to help! Who am I speaking with?</div>
+          </div>
+          <div class="demo-msg demo-msg--customer demo-reveal">
+            <div class="demo-bubble">John Smith</div>
+          </div>
+          <div class="demo-msg demo-msg--ellie demo-reveal">
+            <div class="demo-bubble">Hi John! What service do you need?<br><br>🔧 Leak Repair &nbsp; 🚿 Drain Cleaning<br>🔥 Water Heater &nbsp; ➕ Other</div>
+          </div>
+          <div class="demo-msg demo-msg--customer demo-reveal">
+            <div class="demo-bubble">Leak Repair</div>
+          </div>
+          <div class="demo-msg demo-msg--ellie demo-reveal">
+            <div class="demo-bubble">Got it! What day works best for you?</div>
+          </div>
+          <div class="demo-msg demo-msg--customer demo-reveal">
+            <div class="demo-bubble">Tomorrow works</div>
+          </div>
+          <div class="demo-msg demo-msg--ellie demo-reveal">
+            <div class="demo-bubble">Great! What's the best number for our team to reach you on?</div>
+          </div>
+          <div class="demo-msg demo-msg--customer demo-reveal">
+            <div class="demo-bubble">941-555-0192</div>
+          </div>
+          <div class="demo-msg demo-msg--ellie demo-reveal">
+            <div class="demo-bubble">Perfect John! I've passed your details to our team and someone will call you back shortly to confirm. 👍</div>
+            <div class="demo-time">Delivered</div>
+          </div>
+          <!-- Lead captured card -->
+          <div class="demo-captured demo-reveal">
+            <div class="demo-captured-title">🎯 Lead Captured</div>
+            <div class="demo-captured-grid">
+              <div><span>Name</span> John Smith</div>
+              <div><span>Service</span> Leak Repair</div>
+              <div><span>Day</span> Tomorrow</div>
+              <div><span>Phone</span> 941-555-0192</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features section-enter" id="features">
+  <div class="container">
+    <h2 class="section-title">Everything your front desk does.<br>None of the overhead.</h2>
+    <div class="features-grid">
+      <div class="feature-card tilt-card">
+        <div class="feature-icon"><div class="feature-icon-shape fi-sms">✉</div></div>
+        <h3 class="feature-name">Instant SMS Replies</h3>
+        <p class="feature-desc">Respond to missed calls within seconds, every single time.</p>
+      </div>
+      <div class="feature-card tilt-card">
+        <div class="feature-icon"><div class="feature-icon-shape fi-book">▦</div></div>
+        <h3 class="feature-name">Appointment Booking</h3>
+        <p class="feature-desc">Ellie checks your availability and books directly into your calendar.</p>
+      </div>
+      <div class="feature-card tilt-card">
+        <div class="feature-icon"><div class="feature-icon-shape fi-247">24/7</div></div>
+        <h3 class="feature-name">24/7 Availability</h3>
+        <p class="feature-desc">Nights, weekends, holidays — Ellie never clocks out.</p>
+      </div>
+      <div class="feature-card tilt-card">
+        <div class="feature-icon"><div class="feature-icon-shape fi-custom">⚙</div></div>
+        <h3 class="feature-name">Custom to Your Business</h3>
+        <p class="feature-desc">Tailored responses that sound exactly like your brand.</p>
+      </div>
+      <div class="feature-card tilt-card">
+        <div class="feature-icon"><div class="feature-icon-shape fi-lead">💬</div></div>
+        <h3 class="feature-name">Website Chatbot</h3>
+        <p class="feature-desc">Ellie sits on your website 24/7 — answering questions and capturing leads even while you sleep.</p>
+      </div>
+      <div class="feature-card tilt-card">
+        <div class="feature-icon"><div class="feature-icon-shape fi-hand">▤</div></div>
+        <h3 class="feature-name">Live Dashboard</h3>
+        <p class="feature-desc">See every conversation, every lead, and every booking in your branded Ellie dashboard — in real time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats section-enter" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-number" data-static="24/7">24/7</div>
+        <div class="stat-label">Always On</div>
+      </div>
+      <div>
+        <div class="stat-number" data-target="98" data-suffix="%">0</div>
+        <div class="stat-label">Response Rate</div>
+      </div>
+      <div>
+        <div class="stat-number" data-prefix="< " data-target="30" data-suffix="s">0</div>
+        <div class="stat-label">Reply Time</div>
+      </div>
+      <div>
+        <div class="stat-number" data-static="24/7">24/7</div>
+        <div class="stat-label">Always On</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial -->
+<section class="testimonial section-enter">
+  <div class="container">
+    <div class="testimonial-inner">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">
+        Ellie paid for herself in the first week. We stopped losing leads overnight.
+      </p>
+      <p class="testimonial-attr">— Sarah M., Owner, Bloom Beauty Studio</p>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta section-enter" id="pricing">
+  <div class="final-cta-glow"></div>
+  <h2>Every missed call is a missed sale. Let Ellie fix that.</h2>
+  <a href="/book-a-demo" class="btn-primary" style="font-size:16px;padding:18px 48px;font-weight:600;margin-top:40px">Book a Free Demo</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="wordmark" style="font-size:1.3rem">ellie<span class="wordmark-dot"></span></a>
+    <div class="footer-links">
+      <a href="#how-it-works">How it Works</a>
+      <a href="#features">Features</a>
+      <a href="/privacy-policy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/sms-disclosure">SMS Disclosure</a>
+    </div>
+    <div class="footer-copy">© 2026 Suncoast Technologies LLC</div>
+  </div>
+  <div style="text-align:center;padding:16px 24px 24px;font-size:12px;color:rgba(15,15,26,.35);max-width:800px;margin:0 auto;line-height:1.6;">
+    SMS Disclosure: Businesses using Ellie AI may send automated SMS follow-up messages to customers who call their business number. By calling a business that uses Ellie, you may receive an automated text message reply. Reply STOP to opt out at any time. Reply HELP for assistance. Message and data rates may apply. Message frequency varies. <a href="/sms-disclosure" style="color:rgba(79,70,229,.6);text-decoration:underline">Learn more</a>
+  </div>
+</footer>
+
+<script>
+/* ── Scroll Progress ─────────────────────────────── */
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / h * 100) + '%';
+}, { passive: true });
+
+/* ── Mobile Nav Toggle ───────────────────────────── */
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+/* ── IntersectionObserver: section fade-in ────────── */
+const sections = document.querySelectorAll('.section-enter');
+const sectionObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); sectionObs.unobserve(e.target); }});
+}, { threshold: 0.15 });
+sections.forEach(s => sectionObs.observe(s));
+
+/* ── Phone Message Animation ─────────────────────── */
+(function animateMessages() {
+  const msgs = document.querySelectorAll('#phoneMessages .msg');
+  const typing = document.getElementById('typingIndicator');
+  let i = 0;
+
+  function showNext() {
+    if (i >= msgs.length) return;
+    typing.classList.add('visible');
+    const delay = parseInt(msgs[i].dataset.delay) || 1200;
+    setTimeout(() => {
+      typing.classList.remove('visible');
+      setTimeout(() => {
+        msgs[i].classList.add('visible');
+        i++;
+        if (i < msgs.length) setTimeout(showNext, 400);
+      }, 200);
+    }, delay);
+  }
+
+  setTimeout(showNext, 600);
+})();
+
+/* ── Demo Section Reveal ─────────────────────────── */
+const demoItems = document.querySelectorAll('.demo-reveal');
+const demoObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => {
+        e.target.classList.add('visible');
+      }, i * 120);
+      demoObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+demoItems.forEach(d => demoObs.observe(d));
+
+/* ── Card 3D Tilt ────────────────────────────────── */
+document.querySelectorAll('.tilt-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) translateY(0)';
+  });
+});
+
+/* ── Count-Up Stats ──────────────────────────────── */
+let statsCounted = false;
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !statsCounted) {
+      statsCounted = true;
+      document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const duration = 1800;
+        const start = performance.now();
+        function tick(now) {
+          const p = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + Math.round(target * ease) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+const statsSection = document.getElementById('stats');
+if (statsSection) statsObs.observe(statsSection);
+
+/* ── Rotating border fallback (if @property unsupported) ── */
+(function() {
+  const el = document.querySelector('.cta-rotating-border');
+  if (!el) return;
+  if (!CSS.supports('syntax', '"<angle>"')) {
+    let angle = 0;
+    function rotate() {
+      angle = (angle + 1) % 360;
+      el.style.background = `conic-gradient(from ${angle}deg, #4F46E5, #4F46E5, #3730A3, #3730A3, #4F46E5)`;
+      requestAnimationFrame(rotate);
+    }
+    requestAnimationFrame(rotate);
+  }
+})();
+</script>
+</body>
+</html>
